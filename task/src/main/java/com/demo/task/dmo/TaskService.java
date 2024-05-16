@@ -17,8 +17,15 @@ public class TaskService {
         this.userRepository=userRepository;
     }
 
-    public Task createTask(TaskDTO taskDTO)
+    public Task createTask(TaskDTO taskDTO,Long currentUserId)
     {
+        User currentUser = userRepository.findById(currentUserId)
+                .orElseThrow(() -> new IllegalArgumentException("Current user not found"));
+
+        if (currentUser.getRole() != User.UserRole.ADMIN && currentUser.getRole() != User.UserRole.MANAGER) {
+            throw new UnauthorizedException("Only ADMIN and MANAGER can create tasks");
+        }
+
         User assignedUser=userRepository.findById(taskDTO.getAssignedUserId()).orElse(null);
         User createdBy = userRepository.findById(taskDTO.getCreatedById()).orElse(null);
 

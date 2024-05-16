@@ -26,7 +26,7 @@ public class User {
 
 @Enumerated(EnumType.STRING)
 private UserRole role;
-enum UserRole {
+public enum UserRole {
         ADMIN, MANAGER, USER;
     }
 
