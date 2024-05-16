@@ -1,6 +1,7 @@
 package com.demo.task.dmo;
 
 import com.demo.task.demo.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -43,6 +45,10 @@ public class Task {
     public enum Status {
         TODO,INPROGRESS,DONE
     }
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
     // Getters and Setters
 
 }

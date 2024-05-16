@@ -28,5 +28,22 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
+    @GetMapping("/tasks/{taskId}")
+    public ResponseEntity<Task> getTask(@PathVariable Long taskId) {
+        Task task=taskService.getTaskById(taskId);
+        return new ResponseEntity<>(task, HttpStatus.OK);
+    }
+
+    @PostMapping("/tasks/{taskId}/comments")
+    public ResponseEntity<Comment> addComment(@PathVariable Long taskId, @RequestBody CommentDTO commentDTO) {
+        Comment comment = taskService.addCommentToTask(taskId, commentDTO.getText(), commentDTO.getUserId());
+        return new ResponseEntity<>(comment, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/tasks/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
+        taskService.deleteTask(taskId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
