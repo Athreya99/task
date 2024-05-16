@@ -5,7 +5,6 @@ import com.demo.task.demo.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
